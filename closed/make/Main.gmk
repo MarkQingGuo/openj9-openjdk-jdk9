@@ -26,7 +26,12 @@ CLEAN_DIRS += vm
 
 OPENJ9_MAKE := $(MAKE) -f $(SRC_ROOT)/closed/OpenJ9.gmk SPEC=$(SPEC) VERSION_MAJOR=$(VERSION_MAJOR) OPENJDK_VERSION_NUMBER_FOUR_POSITIONS=$(VERSION_NUMBER_FOUR_POSITIONS)
 
-java.base-libs : java.base-copy j9vm-build
+
+build-jvmti:
+		@$(ECHO) "The version we are using is JDK$(VERSION_MAJOR)"
+		m4 -D JAVA_SPEC_VERSION=$(VERSION_MAJOR) $(OPENJ9_TOPDIR)/runtime/include/jvmti.h.m4 > $(OPENJ9_TOPDIR)/runtime/include/jvmti.h
+
+java.base-libs : build-jvmti java.base-copy j9vm-build
 
 j9vm-build : buildtools-langtools
 	+$(OPENJ9_MAKE) openj9_build_jdk

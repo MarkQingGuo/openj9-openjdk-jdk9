@@ -317,6 +317,11 @@ SPEC_SED_SCRIPT += $(call SedDisable,uma_windowsRebase)
 # openj9_stage_buildspec_file
 # ---------------------------
 # param 1 = The simple name of the file to copy.
+
+#build-jvmti:
+#	@$(ECHO) "The version we are using is JDK$(VERSION_MAJOR)"
+#	m4 -D JAVA_SPEC_VERSION=$(VERSION_MAJOR) $(OPENJ9_TOPDIR)/runtime/include/jvmti.h.m4 > $(OPENJ9_TOPDIR)/runtime/include/jvmti.h
+
 define openj9_stage_buildspec_file
 stage-j9 : $(OUTPUT_ROOT)/vm/buildspecs/$1
 $(OUTPUT_ROOT)/vm/buildspecs/$1 : $(OPENJ9_TOPDIR)/buildspecs/$1
